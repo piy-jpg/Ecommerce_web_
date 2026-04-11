@@ -8,7 +8,8 @@ import { buildProductMediaSet } from "../src/data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, "db.json");
+const BUNDLED_DB_PATH = path.join(__dirname, "db.json");
+const DB_PATH = process.env.VERCEL ? path.join("/tmp", "jaanu-marketplace-db.json") : BUNDLED_DB_PATH;
 const PORT = Number(process.env.PORT || 3001);
 
 const clients = new Set();
@@ -265,9 +266,16 @@ async function loadState() {
     }
     return normalized;
   } catch {
-    const seeded = createSeedState();
-    await fs.writeFile(DB_PATH, JSON.stringify(seeded, null, 2));
-    return seeded;
+    try {
+      const raw = await fs.readFile(BUNDLED_DB_PATH, "utf8");
+      const seededFromDisk = normalizeState(JSON.parse(raw));
+      await fs.writeFile(DB_PATH, JSON.stringify(seededFromDisk, null, 2));
+      return seededFromDisk;
+    } catch {
+      const seeded = createSeedState();
+      await fs.writeFile(DB_PATH, JSON.stringify(seeded, null, 2));
+      return seeded;
+    }
   }
 }
 
@@ -1126,7 +1134,7 @@ async function handleImportInventory(req, res) {
   });
 }
 
-const server = http.createServer(async (req, res) => {
+export async function requestHandler(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (req.method === "OPTIONS") {
@@ -1263,8 +1271,17 @@ const server = http.createServer(async (req, res) => {
       message: error instanceof Error ? error.message : "Unknown error",
     });
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`Realtime marketplace API running on http://localhost:${PORT}`);
-});
+export default requestHandler;
+
+const isDirectExecution =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectExecution) {
+  const server = http.createServer(requestHandler);
+
+  server.listen(PORT, () => {
+    console.log(`Realtime marketplace API running on http://localhost:${PORT}`);
+  });
+}
