@@ -7411,3 +7411,220 @@ header .action:hover span, header .action:hover i {
     min-width: 600px;
   }
 }
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.mens-page .page-header,
+.category-page .category-page-header {
+  overflow: hidden;
+}
+
+.mens-page .product-card,
+.category-page .product-card,
+.product-card-luxury {
+  height: 100%;
+}
+
+.mens-page .product-info,
+.product-info,
+.nav-subpage-body {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .header-main {
+    gap: 18px;
+  }
+
+  .search-container {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .mens-page .filters-bar,
+  .filters-bar {
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  header {
+    height: auto;
+    min-height: 72px;
+  }
+
+  .header-main {
+    min-height: 72px;
+    padding: 10px 0;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .header-left {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .logo {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo-text strong {
+    font-size: 18px;
+  }
+
+  .logo-text span {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  header .header-actions {
+    gap: 8px;
+  }
+
+  header .action {
+    min-width: 42px;
+  }
+
+  .mens-page,
+  .category-page {
+    padding-top: 20px;
+  }
+
+  .mens-page .page-header,
+  .category-page .category-page-header {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  .mens-page .page-header h1,
+  .category-page .category-page-header h1 {
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.05;
+  }
+
+  .mens-page .filters-bar,
+  .filters-bar {
+    padding: 16px;
+    border-radius: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mens-page .category-tabs,
+  .filter-options,
+  .filter-chips {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .mens-page .category-tabs::-webkit-scrollbar,
+  .filter-options::-webkit-scrollbar,
+  .filter-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sort-controls,
+  .results-count {
+    width: 100%;
+  }
+
+  .sort-controls {
+    display: grid;
+    gap: 8px;
+  }
+
+  .sort-controls select,
+  .filter-select {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .product-grid,
+  .mens-page .product-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .mens-page .product-card,
+  .category-page .product-card,
+  .product-card-luxury {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mens-page .product-image img,
+  .category-page .product-card img {
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+
+  .mens-page .product-info,
+  .product-info {
+    padding: 12px;
+  }
+
+  .side-drawer,
+  .checkout-drawer,
+  .auth-drawer {
+    width: min(100%, 420px);
+  }
+
+  .mobile-bottom-nav {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .header-main {
+    gap: 8px;
+  }
+
+  .logo-text span {
+    display: none;
+  }
+
+  .mens-page .page-header,
+  .category-page .category-page-header {
+    padding: 18px 16px;
+  }
+
+  .product-grid,
+  .mens-page .product-grid,
+  .products-grid {
+    gap: 14px;
+  }
+
+  .mens-page .category-tab,
+  .filter-chip {
+    white-space: nowrap;
+  }
+}
